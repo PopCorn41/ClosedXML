@@ -497,9 +497,11 @@ namespace ClosedXML.Excel
                             var clientData = shape.Elements().First(e => e.Name.LocalName == "ClientData");
                             LoadClientData(xlComment, clientData);
 
-                            var textBox = shape.Elements().First(e => e.Name.LocalName == "textbox");
-                            LoadTextBox(xlComment, textBox);
-
+                            if (shape.Elements().Any(e => e.Name.LocalName == "textbox"))
+                            {
+                                var textBox = shape.Elements().First(e => e.Name.LocalName == "textbox");
+                                LoadTextBox(xlComment, textBox);
+                            }
                             var alt = shape.Attribute("alt");
                             if (alt != null) xlComment.Style.Web.SetAlternateText(alt.Value);
 
